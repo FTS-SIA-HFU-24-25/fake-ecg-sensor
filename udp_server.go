@@ -21,7 +21,7 @@ func sendData(conn *net.UDPConn, dataType int, data []byte) {
 
 // RunTestUDPClient reads data from a file line by line and sends it over UDP at a specified frequency.
 func main() {
-	filePath := "2-sample-signal-100hz.txt"
+	filePath := "sample-signal-100hz.txt"
 	frequencyHz := 100
 
 	lib.InitEnvVars()
@@ -67,6 +67,8 @@ func main() {
 		// Wait for the next interval
 		time.Sleep(interval)
 	}
+
+	sendData(conn, 3, []byte{9})
 
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("Error reading file: %v", err)
