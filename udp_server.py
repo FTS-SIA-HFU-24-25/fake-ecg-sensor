@@ -1,11 +1,21 @@
+import os
 import socket
 import time
 
+# Load environment variables from .env
+try:
+    with open(".env", "r") as env_file:
+        for line in env_file:
+            key, value = line.strip().split("=", 1)
+            os.environ[key] = value
+except OSError as e:
+    print("Error loading .env file:", e)
+
 # Configuration
 FILE_PATH = "2-sample-signal-100hz.txt"
-UDP_ADDR = "192.168.1.100"  # Change to your server's IP
-UDP_PORT = 5005  # Change to your server's port
-FREQUENCY_HZ = 100
+UDP_ADDR = os.getenv("UDP_ADDR", "192.168.1.50")
+UDP_PORT = int(os.getenv("UDP_PORT", 3000))
+FREQUENCY_HZ = int(os.getenv("FREQUENCY_HZ", 100))
 INTERVAL = 1.0 / FREQUENCY_HZ
 
 
